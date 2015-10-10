@@ -1,11 +1,7 @@
-function[dir] = get_direction(polar_plot)
-% inputs: current direction, weather data, 
-% polar plot, current location
-% output: direction
-
-% options
+% generate polar plot
+polar_plot = polarDiagram(1);
+polar_plot = polar_plot';
 old_polar_plot = polar_plot;
-plotme = true;
 randomize = true;
 
 % randomize polar plot
@@ -19,15 +15,12 @@ end
 [~, i] = max(polar_plot(:, 2));
 dir = polar_plot(i, 1);
 
-
+plotme = true;
 % display polar plot (optional)
 if plotme
     polar(old_polar_plot(:, 1), old_polar_plot(:, 2))
     hold on
     polar(polar_plot(:, 1), polar_plot(:, 2))
-    polar([dir, 0], [0.08, 0], 'k')
+    polar([dir, 0], [0.08, 0])
     hold off
-end
-
-
 end

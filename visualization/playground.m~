@@ -1,0 +1,13 @@
+% generate polar plot
+polar_plot = polarDiagram(1);
+polar_plot = polar_plot';
+% display polar plot (optional)
+polar(polar_plot(:, 1), polar_plot(:, 2))
+
+% randomize polar plot
+magnitudes = polar_plot(:, 2);
+random_magnitudes = magnitudes(randperm(length(magnitudes)));
+random_polar_plot = [polar_plot()]
+
+[~, i] = max(polar_plot(:, 2));
+dir = polar_plot(i, 1);

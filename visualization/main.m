@@ -10,6 +10,9 @@ direction = 0;
 % units = hours per step
 time_scale = 24;
 
-get_direction
+%% Generate polar plot
+polar_plot = polarDiagram(1);
+polar_plot = polar_plot';
 
-next_location
+%% Get Next Direction
+direction = get_direction(polar_plot);
