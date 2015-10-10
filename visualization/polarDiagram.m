@@ -1,4 +1,5 @@
 function [polarPlot] = polarDiagram(v_airMag)
+addpath('./dynamics_simulation/');
 %%%Calculates and plots polar diagram
 %   Inputs:
 %       v_airMag   magnitude of wind velocity
