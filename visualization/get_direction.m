@@ -22,7 +22,9 @@ dir = polar_plot(i, 1);
 
 % display polar plot (optional)
 if plotme
-    polar(old_polar_plot(:, 1), old_polar_plot(:, 2))
+    f = figure;
+    f.Name = 'Polar plot of Sailboat';
+    polar(old_polar_plot(:, 1), old_polar_plot(:, 2));
     hold on
     polar(polar_plot(:, 1), polar_plot(:, 2))
     polar([dir, 0], [0.08, 0], 'k')

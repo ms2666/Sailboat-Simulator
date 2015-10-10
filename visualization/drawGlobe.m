@@ -1,4 +1,4 @@
-function [] = drawGlobe()
+function [f] = drawGlobe()
 
 %% Set up figure
 f = figure('Renderer','opengl', 'visible', 'off');
@@ -7,12 +7,13 @@ axis equal off
 view(3)
 shading interp
 lighting flat
-camlight right
-camlight left
+
+camlight('headlight')
+% camlight left
 material metal
 
 %% Lower the samplefactor, the higher the resolution
-samplefactor = 15;
+samplefactor = 50;
 [Z, zleg] = etopo('/Volumes/Macintosh Extension/Documents Extension/GitHub/Sailboat-Data/Topology', samplefactor);
 geoshow(Z,zleg,'DisplayType','texturemap')
 

@@ -1,0 +1,15 @@
+function [] = next_location(in_struct)
+% inputs: weather data, polar plot, direction
+%         timescale, current location
+% output: next location
+
+%% calculate speed in direction given
+[i, ~] = knnsearch(in_struct.polar_plot(:, 1), in_struct.direction);
+% speed in m/s
+speed = in_struct.polar_plot(i, 2);
+
+%% calculate distance travelled
+% convert ti
+dist = 
+
+end
