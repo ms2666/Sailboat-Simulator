@@ -1,14 +1,18 @@
-function[dir] = get_direction(polar_plot)
-% inputs: current direction, weather data, 
+function[dir] = get_direction(polar_plot, debug)
+% inputs: current direction, weather data,
 % polar plot, current location
 % output: direction
 
-% options
+%% options
 old_polar_plot = polar_plot;
-plotme = true;
+plotme = false;
 randomize = true;
 
-% randomize polar plot
+if nargin < 2
+    debug = false;
+end
+
+%% randomize polar plot
 if randomize
     magnitudes = polar_plot(:, 2);
     random_magnitudes = magnitudes(randperm(length(magnitudes)));
@@ -18,9 +22,12 @@ end
 
 [~, i] = max(polar_plot(:, 2));
 dir = polar_plot(i, 1);
+if debug
+    fprintf('new direction: %f\n', dir);
+end
 
 
-% display polar plot (optional)
+%% display polar plot (optional)
 if plotme
     f = figure;
     f.Name = 'Polar plot of Sailboat';

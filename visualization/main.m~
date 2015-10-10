@@ -37,20 +37,9 @@ globe.Name = 'Globe';
 globe.Selected = 'on';
 
 %% Simulate path
-% while (sum(current ~= next) > 0)
-%     direction = get_direction(polar_plot);
-%     current = next;
-%     geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor','y','marker','o')
-%     next = next_location(polar_plot, direction, time_scale, current, land, rivers);
-% end
-
-%% a dumber simulate path
-for i = 1:10
+while (sum(current ~= next) > 0)
     direction = get_direction(polar_plot);
     current = next;
     geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor','y','marker','o')
     next = next_location(polar_plot, direction, time_scale, current, land, rivers);
-    [lttrk, lntrk] = track([current; next]);
-    plotm(lttrk, lntrk, 'r', 'LineWidth', 3)
-    drawnow
 end
