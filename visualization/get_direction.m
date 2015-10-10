@@ -7,6 +7,7 @@ function[dir] = get_direction(polar_plot, debug)
 old_polar_plot = polar_plot;
 plotme = false;
 randomize = false;
+shift = false;
 
 if nargin < 2
     debug = false;
@@ -20,12 +21,22 @@ if randomize
     polar_plot = random_polar_plot;
 end
 
+%% randomly shift circularly
+if shift
+    magnitudes = polar_plot(:, 2);
+    shifted_magnitudes = circshift(magnitudes, randi([0 length(magnitudes)], 1, 1));
+    shifted_polar_plot = [polar_plot(:, 1) shifted_magnitudes];
+    polar_plot = shifted_polar_plot;
+end
+
+%% calculate new direction by maximizing polar plot velocity
 [~, i] = max(polar_plot(:, 2));
 dir = polar_plot(i, 1);
+
+%% debug?
 if debug
     fprintf('new direction: %f\n', dir);
 end
-
 
 %% display polar plot (optional)
 if plotme

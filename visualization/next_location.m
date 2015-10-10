@@ -8,7 +8,7 @@ debug = false;
 
 %% assign speed_factor
 % this is arbitrary for now
-speed_factor = 10;
+speed_factor = 50;
 
 %% calculate speed in direction given
 [i, ~] = knnsearch(polar_plot(:, 1), dir);

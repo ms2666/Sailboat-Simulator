@@ -17,7 +17,7 @@ rivers = shaperead('worldrivers','UseGeoCoords',true);
 
 %% Timescale
 % units = minutes per step
-time_scale_in_hours = 1;
+time_scale_in_hours = 100;
 time_scale = time_scale_in_hours*60;
 
 %% Generate polar plot
@@ -37,23 +37,17 @@ globe.Name = 'Globe';
 globe.Selected = 'on';
 
 %% Simulate path
-% some options
-startColor = [69,255,149]./255;
-endColor = [255,60,59]./255;
-interColor = [255,232,37]./255;
-lineColor = [236,243,253]./255;
-animate = true;
-debug = true;
-shift = false;
+% while (sum(current ~= next) > 0)
+%     direction = get_direction(polar_plot);
+%     current = next;
+%     geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor','y','marker','o')
+%     next = next_location(polar_plot, direction, time_scale, current, land, rivers);
+% end
 
-% start simulation
-geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor',startColor,'marker','o', 'MarkerSize',10)
-for i = 1:1000
-    if debug
-        fprintf('Current iteration: %d\n', i);
-    end
-    
+%% a dumber simulate path
+for i = 1:100
     % update polar plot
+    shift = true;
     if shift
         magnitudes = polar_plot(:, 2);
         shifted_magnitudes = circshift(magnitudes, randi([0 length(magnitudes)], 1, 1));
@@ -62,25 +56,15 @@ for i = 1:1000
     end
     % update direction
     direction = get_direction(polar_plot);
-    % plot line between current and next
-    [lttrk, lntrk] = track2('gc', current(1), current(2), next(1), next(2));
-    plotm(lttrk, lntrk, 'LineWidth', 1, 'Color', lineColor)
-    
     % update current location
     current = next;
     % plot current location
-    geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor',interColor,'marker','o', 'MarkerSize',2)
+    geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor',[41,254,208]./255,'marker','o',)
     % calculate next point
     next = next_location(polar_plot, direction, time_scale, current, land, rivers);
-    
-    if animate
-        drawnow
-    end
-    
-    if sum(next == current) > 0
-        break;
-    end
+    % plot line between current and next
+    %     [lttrk, lntrk] = track([current; next]);
+    [lttrk, lntrk] = track2('gc', current(1), current(2), next(1), next(2));
+    plotm(lttrk, lntrk, 'LineWidth', 1, 'Color', [253,119,75]./255)
+    drawnow
 end
-geoshow(next(1),next(2),'DisplayType','point','markeredgecolor','y','markerfacecolor',endColor,'marker','o', 'MarkerSize',10)
-[lttrk, lntrk] = track2('gc', current(1), current(2), next(1), next(2));
-plotm(lttrk, lntrk, 'LineWidth', 1, 'Color', lineColor)
