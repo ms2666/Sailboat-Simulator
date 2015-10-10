@@ -6,7 +6,7 @@ function[dir] = get_direction(polar_plot, debug)
 %% options
 old_polar_plot = polar_plot;
 plotme = false;
-randomize = true;
+randomize = false;
 
 if nargin < 2
     debug = false;

@@ -6,7 +6,7 @@ current_location = [40.7, -74.0];
 
 %% Timescale
 % units = minutes per step
-time_scale = 10;
+time_scale = 500;
 
 % generate polar plot
 polar_plot = polarDiagram(1);

@@ -17,7 +17,7 @@ rivers = shaperead('worldrivers','UseGeoCoords',true);
 
 %% Timescale
 % units = minutes per step
-time_scale_in_hours = 24;
+time_scale_in_hours = 1;
 time_scale = time_scale_in_hours*60;
 
 %% Generate polar plot
@@ -45,7 +45,7 @@ globe.Selected = 'on';
 % end
 
 %% a dumber simulate path
-for i = 1:10
+for i = 1:1000
     direction = get_direction(polar_plot);
     current = next;
     geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor','y','marker','o')
