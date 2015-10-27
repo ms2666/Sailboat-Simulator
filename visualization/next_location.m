@@ -28,6 +28,7 @@ end
 %% calculate distance travelled
 % convert time_scale from minutes to seconds
 t = time_scale * 60;
+% come up with better function for distance
 dist = speed * t;
 if debug
     fprintf('distance travelled in %d seconds is %f meters.\n', t, dist);
