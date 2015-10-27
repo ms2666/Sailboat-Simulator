@@ -11,11 +11,7 @@ debug = false;
 speed_factor = 50;
 
 %% calculate speed in direction given
-% TODO: regenerate polar plot using V_{a/w}
 % polar_plot = polarDiagram(v_{a/w})
-% ===== remove me =========
-% polar_plot = polarDiagram(10);
-% =========================
 [i, ~] = knnsearch(polar_plot(:, 1), dir);
 % speed in m/s
 speed = speed_factor*polar_plot(i, 2);

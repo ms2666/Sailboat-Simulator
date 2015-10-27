@@ -57,7 +57,7 @@ for i = 1:1000
     end
     
     % update polar plot
-    
+    % at each time stamp
 
     % update direction
     direction = get_direction(polar_plot, current_location, current_time);
