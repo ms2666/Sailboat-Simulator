@@ -57,12 +57,8 @@ for i = 1:1000
     end
     
     % update polar plot
-    if shift
-        magnitudes = polar_plot(:, 2);
-        shifted_magnitudes = circshift(magnitudes, randi([0 length(magnitudes)], 1, 1));
-        shifted_polar_plot = [polar_plot(:, 1) shifted_magnitudes];
-        polar_plot = shifted_polar_plot;
-    end
+    
+
     % update direction
     direction = get_direction(polar_plot, current_location, current_time);
     % plot line between current and next

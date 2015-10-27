@@ -4,30 +4,16 @@ function[dir] = get_direction(polar_plot, debug, current_location, current_time)
 % output: direction
 
 %% options
-old_polar_plot = polar_plot;
 plotme = false;
-randomize = false;
-shift = false;
 
 if nargin < 2
     debug = false;
 end
 
-%% randomize polar plot
-if randomize
-    magnitudes = polar_plot(:, 2);
-    random_magnitudes = magnitudes(randperm(length(magnitudes)));
-    random_polar_plot = [polar_plot(:, 1) random_magnitudes];
-    polar_plot = random_polar_plot;
-end
+%% Logic goes here ==========
 
-%% randomly shift circularly
-if shift
-    magnitudes = polar_plot(:, 2);
-    shifted_magnitudes = circshift(magnitudes, randi([0 length(magnitudes)], 1, 1));
-    shifted_polar_plot = [polar_plot(:, 1) shifted_magnitudes];
-    polar_plot = shifted_polar_plot;
-end
+% ===========================
+
 
 %% calculate new direction by maximizing polar plot velocity
 [~, i] = max(polar_plot(:, 2));
