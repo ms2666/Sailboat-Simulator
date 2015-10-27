@@ -1,0 +1,300 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>main</title><meta name="generator" content="MATLAB 8.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2015-10-13"><meta name="DC.source" content="main.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">Current Location</a></li><li><a href="#3">Direction</a></li><li><a href="#4">Geography</a></li><li><a href="#5">Timescale</a></li><li><a href="#6">Generate polar plot</a></li><li><a href="#7">Get Next Direction</a></li><li><a href="#8">Get Next Location</a></li><li><a href="#9">Display globe</a></li><li><a href="#10">Simulate path</a></li></ul></div><pre class="codeinput">close <span class="string">all</span>
+</pre><h2>Current Location<a name="2"></a></h2><p>units = [latitude, longitude]</p><pre class="codeinput">current = [40.7, -74.0];
+current = [32, -71]; <span class="comment">% coast of florida</span>
+</pre><h2>Direction<a name="3"></a></h2><p>units = radians above 0</p><pre class="codeinput">direction = 0;
+</pre><h2>Geography<a name="4"></a></h2><p>initialize land here so we dont have to constantly do it</p><pre class="codeinput">land = shaperead(<span class="string">'landareas'</span>,<span class="string">'UseGeoCoords'</span>,true);
+rivers = shaperead(<span class="string">'worldrivers'</span>,<span class="string">'UseGeoCoords'</span>,true);
+</pre><h2>Timescale<a name="5"></a></h2><p>units = minutes per step</p><pre class="codeinput">time_scale_in_hours = 5;
+time_scale = time_scale_in_hours*60;
+</pre><h2>Generate polar plot<a name="6"></a></h2><pre class="codeinput">polar_plot = polarDiagram(1);
+polar_plot = polar_plot';
+</pre><h2>Get Next Direction<a name="7"></a></h2><pre class="codeinput">direction = get_direction(polar_plot);
+</pre><h2>Get Next Location<a name="8"></a></h2><p>create input struct</p><pre class="codeinput">next = next_location(polar_plot, direction, time_scale, current, land, rivers);
+</pre><h2>Display globe<a name="9"></a></h2><pre class="codeinput">globe = drawGlobe();
+globe.Name = <span class="string">'Globe'</span>;
+globe.Selected = <span class="string">'on'</span>;
+</pre><img vspace="5" hspace="5" src="main_01.png" alt=""> <h2>Simulate path<a name="10"></a></h2><p>some options</p><pre class="codeinput">startColor = [69,255,149]./255;
+endColor = [255,60,59]./255;
+interColor = [255,232,37]./255;
+lineColor = [236,243,253]./255;
+animate = true;
+debug = true;
+shift = true;
+
+<span class="comment">% start simulation</span>
+geoshow(current(1),current(2),<span class="string">'DisplayType'</span>,<span class="string">'point'</span>,<span class="string">'markeredgecolor'</span>,<span class="string">'y'</span>,<span class="string">'markerfacecolor'</span>,startColor,<span class="string">'marker'</span>,<span class="string">'o'</span>, <span class="string">'MarkerSize'</span>,10)
+<span class="keyword">for</span> i = 1:1000
+    <span class="keyword">if</span> debug
+        fprintf(<span class="string">'Current iteration: %d\n'</span>, i);
+    <span class="keyword">end</span>
+
+    <span class="comment">% update polar plot</span>
+    <span class="keyword">if</span> shift
+        magnitudes = polar_plot(:, 2);
+        shifted_magnitudes = circshift(magnitudes, randi([0 length(magnitudes)], 1, 1));
+        shifted_polar_plot = [polar_plot(:, 1) shifted_magnitudes];
+        polar_plot = shifted_polar_plot;
+    <span class="keyword">end</span>
+    <span class="comment">% update direction</span>
+    direction = get_direction(polar_plot);
+    <span class="comment">% plot line between current and next</span>
+    [lttrk, lntrk] = track2(<span class="string">'gc'</span>, current(1), current(2), next(1), next(2));
+    plotm(lttrk, lntrk, <span class="string">'LineWidth'</span>, 1, <span class="string">'Color'</span>, lineColor)
+
+    <span class="comment">% update current location</span>
+    current = next;
+    <span class="comment">% plot current location</span>
+    geoshow(current(1),current(2),<span class="string">'DisplayType'</span>,<span class="string">'point'</span>,<span class="string">'markeredgecolor'</span>,<span class="string">'y'</span>,<span class="string">'markerfacecolor'</span>,interColor,<span class="string">'marker'</span>,<span class="string">'o'</span>, <span class="string">'MarkerSize'</span>,2)
+    <span class="comment">% calculate next point</span>
+    next = next_location(polar_plot, direction, time_scale, current, land, rivers);
+
+    <span class="keyword">if</span> animate
+        drawnow
+    <span class="keyword">end</span>
+
+    <span class="keyword">if</span> sum(next == current) &gt; 0
+        <span class="keyword">break</span>;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+geoshow(next(1),next(2),<span class="string">'DisplayType'</span>,<span class="string">'point'</span>,<span class="string">'markeredgecolor'</span>,<span class="string">'y'</span>,<span class="string">'markerfacecolor'</span>,endColor,<span class="string">'marker'</span>,<span class="string">'o'</span>, <span class="string">'MarkerSize'</span>,10)
+[lttrk, lntrk] = track2(<span class="string">'gc'</span>, current(1), current(2), next(1), next(2));
+plotm(lttrk, lntrk, <span class="string">'LineWidth'</span>, 1, <span class="string">'Color'</span>, lineColor)
+</pre><pre class="codeoutput">Current iteration: 1
+Current iteration: 2
+Current iteration: 3
+Current iteration: 4
+Current iteration: 5
+Current iteration: 6
+Current iteration: 7
+Current iteration: 8
+Current iteration: 9
+Current iteration: 10
+Current iteration: 11
+Current iteration: 12
+Current iteration: 13
+Current iteration: 14
+Current iteration: 15
+Current iteration: 16
+Current iteration: 17
+Current iteration: 18
+Current iteration: 19
+Current iteration: 20
+Current iteration: 21
+Current iteration: 22
+Current iteration: 23
+Current iteration: 24
+Current iteration: 25
+Current iteration: 26
+Current iteration: 27
+Current iteration: 28
+Current iteration: 29
+Current iteration: 30
+Current iteration: 31
+Current iteration: 32
+Current iteration: 33
+Current iteration: 34
+Current iteration: 35
+Current iteration: 36
+Current iteration: 37
+Current iteration: 38
+Current iteration: 39
+Current iteration: 40
+Current iteration: 41
+Current iteration: 42
+Current iteration: 43
+Current iteration: 44
+Current iteration: 45
+Current iteration: 46
+Current iteration: 47
+Current iteration: 48
+Current iteration: 49
+Current iteration: 50
+Current iteration: 51
+Current iteration: 52
+Current iteration: 53
+Current iteration: 54
+Current iteration: 55
+Current iteration: 56
+Current iteration: 57
+Current iteration: 58
+Current iteration: 59
+Current iteration: 60
+Current iteration: 61
+Current iteration: 62
+</pre><pre class="codeoutput error">Error using gcm&gt;checkaxes (line 40)
+No axes in current figure.
+Select a figure with map axes or use AXESM to define one.
+
+Error in gcm (line 23)
+h = checkaxes(varargin{:});
+
+Error in nextmap (line 24)
+    gcm; % Will error if gca is not a valid map axes
+
+Error in nextmap (line 43)
+        nextmap
+
+Error in plotm (line 59)
+nextmap(varargin)
+
+Error in main (line 67)
+    plotm(lttrk, lntrk, 'LineWidth', 1, 'Color', lineColor)
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+close all
+
+%% Current Location
+% units = [latitude, longitude]
+current = [40.7, -74.0];
+current = [32, -71]; % coast of florida
+
+%% Direction
+% units = radians above 0
+direction = 0;
+
+%% Geography
+% initialize land here so we dont have to constantly do it
+land = shaperead('landareas','UseGeoCoords',true);
+rivers = shaperead('worldrivers','UseGeoCoords',true);
+
+
+%% Timescale
+% units = minutes per step
+time_scale_in_hours = 5;
+time_scale = time_scale_in_hours*60;
+
+%% Generate polar plot
+polar_plot = polarDiagram(1);
+polar_plot = polar_plot';
+
+%% Get Next Direction
+direction = get_direction(polar_plot);
+
+%% Get Next Location
+% create input struct
+next = next_location(polar_plot, direction, time_scale, current, land, rivers);
+
+%% Display globe
+globe = drawGlobe();
+globe.Name = 'Globe';
+globe.Selected = 'on';
+
+%% Simulate path
+% some options
+startColor = [69,255,149]./255;
+endColor = [255,60,59]./255;
+interColor = [255,232,37]./255;
+lineColor = [236,243,253]./255;
+animate = true;
+debug = true;
+shift = true;
+
+% start simulation
+geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor',startColor,'marker','o', 'MarkerSize',10)
+for i = 1:1000
+    if debug
+        fprintf('Current iteration: %d\n', i);
+    end
+    
+    % update polar plot
+    if shift
+        magnitudes = polar_plot(:, 2);
+        shifted_magnitudes = circshift(magnitudes, randi([0 length(magnitudes)], 1, 1));
+        shifted_polar_plot = [polar_plot(:, 1) shifted_magnitudes];
+        polar_plot = shifted_polar_plot;
+    end
+    % update direction
+    direction = get_direction(polar_plot);
+    % plot line between current and next
+    [lttrk, lntrk] = track2('gc', current(1), current(2), next(1), next(2));
+    plotm(lttrk, lntrk, 'LineWidth', 1, 'Color', lineColor)
+    
+    % update current location
+    current = next;
+    % plot current location
+    geoshow(current(1),current(2),'DisplayType','point','markeredgecolor','y','markerfacecolor',interColor,'marker','o', 'MarkerSize',2)
+    % calculate next point
+    next = next_location(polar_plot, direction, time_scale, current, land, rivers);
+    
+    if animate
+        drawnow
+    end
+    
+    if sum(next == current) > 0
+        break;
+    end
+end
+geoshow(next(1),next(2),'DisplayType','point','markeredgecolor','y','markerfacecolor',endColor,'marker','o', 'MarkerSize',10)
+[lttrk, lntrk] = track2('gc', current(1), current(2), next(1), next(2));
+plotm(lttrk, lntrk, 'LineWidth', 1, 'Color', lineColor)
+
+##### SOURCE END #####
+--></body></html>

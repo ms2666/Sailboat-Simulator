@@ -92,7 +92,7 @@ L_sail=.5*p.rho_air*p.SA_sail*norm(v_sail)*...
 D_sail=.5*p.rho_air*p.SA_sail*norm(v_sail)*...
     c_dragSail*(-v_sail);
 %Hull resistance
-R_hull=2.48*norm(v_boat)^2*(-v_boat);
+R_hull=6.48*norm(v_boat)^2*(-v_boat);
 
 %%% Sum of forces
 F=L_keel+D_keel+L_sail+D_sail+R_hull;

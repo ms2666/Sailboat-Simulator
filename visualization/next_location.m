@@ -1,4 +1,4 @@
-function [next] = next_location(polar_plot, dir, time_scale, current_location, land, rivers)
+function [next] = next_location(polar_plot, dir, time_scale, current_location, current_time)
 % inputs: weather data, polar plot, direction
 %         timescale, current location
 % output: next location
@@ -11,9 +11,16 @@ debug = false;
 speed_factor = 50;
 
 %% calculate speed in direction given
+% TODO: regenerate polar plot using V_{a/w}
+% polar_plot = polarDiagram(v_{a/w})
+% ===== remove me =========
+% polar_plot = polarDiagram(10);
+% =========================
 [i, ~] = knnsearch(polar_plot(:, 1), dir);
 % speed in m/s
 speed = speed_factor*polar_plot(i, 2);
+% TODO: add velocity of water to calculate velocity of boat
+% speed = speed + v_water
 if debug
     fprintf('speed in inputted direction is %f m/s.\n', speed);
 end

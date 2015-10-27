@@ -1,4 +1,4 @@
-function[dir] = get_direction(polar_plot, debug)
+function[dir] = get_direction(polar_plot, debug, current_location, current_time)
 % inputs: current direction, weather data,
 % polar plot, current location
 % output: direction
