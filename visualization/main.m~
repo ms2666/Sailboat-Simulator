@@ -10,15 +10,10 @@ present_location = [32, -71]; % coast of florida
 present_time = datenum('jan-01-2014');
 
 %% Weather Data
-if(~exist('current', 'var'))
-    current = load('currents_2014.mat');
-end
-% if(~exist('wind', 'var'))
-%     wind = load('winds_2014.mat');
-% end
-% if(~exist('rel_wind', 'var'))
-%     rel_wind = load('relativeWind_2014.mat');
-% end
+if(exist('))
+current = load('currents_2014.mat');
+% wind = load('winds_2014.mat');
+% rel_wind = load('relativeWind_2014.mat');
 
 %% Direction
 % units = radians above 0
@@ -70,7 +65,7 @@ for i = 1:1000
     
     % update polar plot at each time stamp
     present_current = interpolateEntry(present_location(1), present_location(2), present_time, current);
-    
+
     % update direction
     direction = get_direction(polar_plot, present_location, present_time);
     % plot line between current and next
