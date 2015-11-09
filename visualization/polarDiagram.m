@@ -32,6 +32,8 @@ for k=1:N
     %ignore backward velocities
     if dot(v_boat,[cos(p.theta),sin(p.theta)]) > 0
         %calculate velocity magnitude
+        %         v_boatMag(k)=norm(v_boat);
+        disp(v_boat)
         v_boatMag(k)=norm(v_boat);
     else
         v_boatMag(k)=0;

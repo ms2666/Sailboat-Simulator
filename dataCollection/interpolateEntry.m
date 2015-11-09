@@ -17,3 +17,5 @@ lonind = double((lon-lons(1))/(lons(2)-lons(1)));
 tind = double((time-times(1))/(times(2)-times(1)));
 u = interp3(data.U,latind,lonind,tind);
 v = interp3(data.V,latind,lonind,tind);
+
+end

@@ -12,4 +12,5 @@ F=griddedInterpolant({1:x,1:y,1:z},polarData.allDiagrams);
 polarPlot= F({velInd,1:y,1:z});
 polarPlot = squeeze(polarPlot);
 
+end
 
