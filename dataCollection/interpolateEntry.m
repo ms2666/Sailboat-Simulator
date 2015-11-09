@@ -11,9 +11,7 @@ end
 lats = data.g;
 lons = data.f;
 times = data.t(:,1);
-if lon < lons(1)
-    lon = 360+lon;
-end
+lon = mod(lon,360)+lons(1);
 latind = double((lat-lats(1))/(lats(2)-lats(1)));
 lonind = double((lon-lons(1))/(lons(2)-lons(1)));
 tind = double((time-times(1))/(times(2)-times(1)));
