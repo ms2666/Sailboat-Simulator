@@ -14,7 +14,6 @@ end
 
 % ===========================
 
-
 %% calculate new direction by maximizing polar plot velocity
 [~, i] = max(polar_plot(:, 2));
 dir = polar_plot(i, 1);
