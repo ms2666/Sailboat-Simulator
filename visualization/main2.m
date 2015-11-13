@@ -1,6 +1,7 @@
 close all
 clearvars -except current wind rel_wind
 addpath('../dataCollection')
+addpath('../../Simulator-Data')
 
 %%
 %   ____            _
