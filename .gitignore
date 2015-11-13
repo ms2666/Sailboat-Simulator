@@ -1,5 +1,6 @@
 dataCollection/winds_2014.mat
 dataCollection/currents_2014.mat
+dataCollection/relativeWind_2014.mat
 visualization/drawGlobe.m
 *.mat
 
